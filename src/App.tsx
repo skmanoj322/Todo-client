@@ -1,8 +1,13 @@
+import { CssBaseline } from "@mui/material";
+import Home from "./copmonent/Home";
+import { RecoilRoot } from "recoil";
+
 function App() {
   return (
-    <>
-      <h1>Hi there how are you</h1>
-    </>
+    <RecoilRoot>
+      <CssBaseline />
+      <Home />
+    </RecoilRoot>
   );
 }
 
