@@ -8,6 +8,13 @@ const TodoItem = (props: any) => {
       headers: { Authorization: "Bearer " + localStorage.getItem("token") },
     });
   };
+  const completeHandler = async () => {
+    await axios.put(
+      `${BASE_URL}/edittodo`,
+      { id: props.items._id, done: true },
+      { headers: { Authorization: "Bearer " + localStorage.getItem("token") } }
+    );
+  };
   return (
     <Paper
       elevation={3}
@@ -21,12 +28,13 @@ const TodoItem = (props: any) => {
         }}
         // component={Paper}
       >
-        {props.items.todo}
+        {props.items.done ? <s>{props.items.todo}</s> : `${props.items.todo}`}
       </Typography>
       <Button
         variant="contained"
         size="small"
         sx={{ fontSize: "10px", height: "50%", m: 1 }}
+        onClick={completeHandler}
       >
         Completed
       </Button>
