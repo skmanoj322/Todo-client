@@ -1,5 +1,13 @@
 import { Paper, Typography, Button } from "@mui/material";
+import axios from "axios";
+import { BASE_URL } from "../config";
 const TodoItem = (props: any) => {
+  const deleteHandler = async () => {
+    await axios.delete(`${BASE_URL}/deletetodo`, {
+      data: { id: props.items._id },
+      headers: { Authorization: "Bearer " + localStorage.getItem("token") },
+    });
+  };
   return (
     <Paper
       elevation={3}
@@ -13,7 +21,7 @@ const TodoItem = (props: any) => {
         }}
         // component={Paper}
       >
-        {props.items}
+        {props.items.todo}
       </Typography>
       <Button
         variant="contained"
@@ -21,6 +29,14 @@ const TodoItem = (props: any) => {
         sx={{ fontSize: "10px", height: "50%", m: 1 }}
       >
         Completed
+      </Button>
+      <Button
+        variant="contained"
+        size="small"
+        sx={{ fontSize: "10px", height: "50%", m: 1 }}
+        onClick={deleteHandler}
+      >
+        Delete
       </Button>
     </Paper>
   );

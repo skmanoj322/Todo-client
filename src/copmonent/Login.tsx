@@ -32,7 +32,10 @@ const Login = () => {
       try {
         const response = await axios.post(url, input);
         const token = response?.data?.token;
+        localStorage.setItem("token", token);
+        console.log(token);
         setToken(token);
+
         navigate("/Todo");
       } catch (err) {
         console.log(err);

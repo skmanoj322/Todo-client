@@ -14,7 +14,7 @@ import { useRecoilState } from "recoil";
 
 const NavBar = () => {
   //   const [auth, setAuth] = React.useState(true);
-  const istoken = useRecoilState(token);
+  const [istoken, setIsToken] = useRecoilState(token);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -23,6 +23,8 @@ const NavBar = () => {
 
   const handleClose = () => {
     setAnchorEl(null);
+    setIsToken("");
+    localStorage.removeItem("token");
   };
 
   return (
@@ -40,8 +42,8 @@ const NavBar = () => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Todo
           </Typography>
-          {istoken[0] && (
-            <div>
+          <div>
+            {istoken && (
               <IconButton
                 size="large"
                 aria-label="account of current user"
@@ -52,26 +54,26 @@ const NavBar = () => {
               >
                 <AccountCircle />
               </IconButton>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-              >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
-                <MenuItem onClick={handleClose}>My account</MenuItem>
-              </Menu>
-            </div>
-          )}
+            )}
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorEl}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "right",
+              }}
+              open={Boolean(anchorEl)}
+              onClose={handleClose}
+            >
+              {/* <MenuItem onClick={handleClose}>Profile</MenuItem> */}
+              <MenuItem onClick={handleClose}>Logout</MenuItem>
+            </Menu>
+          </div>
         </Toolbar>
       </AppBar>
     </Box>
